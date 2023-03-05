@@ -1,0 +1,28 @@
+---
+- name: setting up webservers
+  hosts: webservers
+  become: true
+
+  tasks:
+  - name: "adding spiderman user in hosts"
+    ansible.builtin.user:
+      name: spiderman
+      comment: "to save the world!"
+
+  - name: "Create ironman user with expiration as 2023 Dec 31st"
+    ansible.builtin.user:
+      name: ironman
+      expires: 1704050117
+
+  - name: "Create John user and add him to root group"
+    ansible.builtin.user:
+      name: John
+      group: root
+
+  - name: "Remove the user spiderman"
+    ansible.builtin.user:
+      name: spiderman
+      state: absent
+      remove: yes
+  
+    
