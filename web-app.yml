@@ -1,0 +1,21 @@
+---
+- name: playbook to deploy webapp
+  hosts: webservers
+  become: true
+
+  tasks:
+  - name: Install the latest version of Apache
+    ansible.builtin.yum:
+      name: httpd
+      state: latest
+
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name: httpd
+      state: started
+
+  - name: Deploy the html page
+    ansible.builtin.copy:
+      #content: 'Hey there, we are learning Ansible! '
+      src: /etc/ansible/hands-on/index.html
+      dest: /var/www/html/index.html
